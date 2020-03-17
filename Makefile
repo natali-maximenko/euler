@@ -17,4 +17,4 @@ format:
 	mix format
 
 test:
-	mix test
+	mix coveralls
