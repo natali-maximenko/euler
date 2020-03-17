@@ -13,7 +13,7 @@ defmodule Euler.Taxes.TaxesTest do
     test "with invalid checksum" do
       checksum = 732_897_853_531
       {:ok, result} = Taxes.verify_itn(checksum)
-      assert result
+      refute result
     end
 
     test "with invalid itn returns error with message" do

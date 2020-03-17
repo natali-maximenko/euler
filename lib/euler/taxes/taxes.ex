@@ -2,8 +2,7 @@ defmodule Euler.Taxes do
   @moduledoc """
   Taxes context.
   """
+  alias Euler.Taxes.ItnVerification
 
-  def verify_itn(checksum) when is_integer(checksum) and checksum > 0, do: {:ok, true}
-  def verify_itn(checksum) when is_integer(checksum) and checksum < 0, do: {:ok, false}
-  def verify_itn(_), do: {:error, "not integer"}
+  def verify_itn(checksum), do: ItnVerification.verify(checksum)
 end
