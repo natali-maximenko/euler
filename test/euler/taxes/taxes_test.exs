@@ -38,6 +38,8 @@ defmodule Euler.Taxes.TaxesTest do
       assert result
     end
 
+    # TODO invalid control first control number
+
     test "ends with zero and valid checksum" do
       checksum = "732897853530"
       {:ok, result} = Taxes.verify_itn(checksum)

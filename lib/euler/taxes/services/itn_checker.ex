@@ -45,9 +45,9 @@ defmodule Euler.Taxes.ItnChecker do
   defp control_number(itn, :index, index),
     do: itn |> String.slice(index, 1) |> String.to_integer()
 
-  defp sequence(itn, length) do
+  defp sequence(itn, len) do
     itn
-    |> String.slice(0, length)
+    |> String.slice(0, len)
     |> String.graphemes()
     |> Enum.map(&String.to_integer/1)
   end
@@ -59,10 +59,10 @@ defmodule Euler.Taxes.ItnChecker do
     |> Enum.sum()
   end
 
-  def step2(check_val) do
+  defp step2(check_val) do
     rem(check_val, 11)
   end
 
-  def step3(10), do: 0
-  def step3(check_val), do: check_val
+  defp step3(10), do: 0
+  defp step3(check_val), do: check_val
 end
