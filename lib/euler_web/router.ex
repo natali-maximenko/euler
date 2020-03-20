@@ -16,7 +16,9 @@ defmodule EulerWeb.Router do
   scope "/", EulerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/page", PageController, :index
+    get "/", TaxesController, :index
+    post "/check_itn", TaxesController, :check_itn
   end
 
   # Other scopes may use custom stacks.

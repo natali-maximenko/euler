@@ -1,0 +1,15 @@
+<section class="row">
+<p>
+  <%= form_for @changeset, "/check_itn", [as: :form], fn f -> %>
+  <div class="form-group">
+    <%= label f, "Введите ИНН", class: "control-label" %>
+    <%= text_input f, :itn, class: "form-control" %>
+    <%= error_tag f, :itn %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Отправить", class: "btn btn-primary" %>
+  </div>
+<% end %>
+</p>
+</section>
