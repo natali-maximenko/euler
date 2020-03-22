@@ -13,3 +13,8 @@
 <% end %>
 </p>
 </section>
+<div>
+<%= for l <- @list do %>
+<p>[<%= l.inserted_at %>] <%= l.itn %> : <%= l.valid %></p>
+<% end %>
+</div>
