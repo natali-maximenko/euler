@@ -4,16 +4,15 @@ defmodule EulerWeb.TaxesController do
 
   def index(conn, _params) do
     changeset = Taxes.build_checkup()
-    # TODO list return only my checkups
-    list = Taxes.list_checkups()
+    # list return only my checkups
+    list = Taxes.list_checkups(conn.private[:current_ip])
     render(conn, "index.html", changeset: changeset, list: list)
   end
 
   def check_itn(conn, %{"form" => form_params}) do
     with {:ok, result} <- Taxes.verify_itn(form_params["itn"]),
          attrs <- build_checkup(conn, form_params["itn"], result),
-         {:ok, _checkup} <- Taxes.create_checkup(attrs)
-         do
+         {:ok, _checkup} <- Taxes.create_checkup(attrs) do
       conn
       |> put_flash(:info, result_msg(result))
       |> redirect(to: "/")

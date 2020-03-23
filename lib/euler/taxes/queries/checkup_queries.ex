@@ -11,6 +11,9 @@ defmodule Euler.Taxes.CheckupQueries do
   end
 
   def change, do: Checkup.changeset(%Checkup{}, %{})
-  def list, do: Repo.all(from ch in Checkup, order_by: [desc: :inserted_at])
   def get(id), do: Repo.get(Checkup, id)
+
+  def list(ip) do
+    Repo.all(from ch in Checkup, where: ch.ip == ^ip, order_by: [desc: :inserted_at])
+  end
 end
