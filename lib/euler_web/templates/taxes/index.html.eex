@@ -15,6 +15,6 @@
 </section>
 <div>
 <%= for l <- @list do %>
-<p>[<%= l.inserted_at %>] <%= l.itn %> : <%= l.valid %></p>
+<p>[<%= l.inserted_at |> to_string() |> String.slice(0..-9) %>] <%= l.itn %> : <%= l.valid %></p>
 <% end %>
 </div>

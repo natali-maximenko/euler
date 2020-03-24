@@ -2,6 +2,8 @@ defmodule EulerWeb.TaxesController do
   use EulerWeb, :controller
   alias Euler.Taxes
 
+  action_fallback EulerWeb.FallbackController
+
   def index(conn, _params) do
     changeset = Taxes.change_checkup()
     # list return only my checkups
@@ -16,12 +18,6 @@ defmodule EulerWeb.TaxesController do
       conn
       |> put_flash(:info, result_msg(result))
       |> redirect(to: "/")
-
-      # TODO fallback controller
-      # {:error, msg} ->
-      #   conn
-      #   |> put_flash(:info, msg)
-      #   |> redirect(to: "/")
     end
   end
 
