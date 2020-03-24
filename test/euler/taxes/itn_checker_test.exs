@@ -1,4 +1,4 @@
-defmodule Euler.Taxes.TaxesTest do
+defmodule Euler.Taxes.ItnCheckerTest do
   use Euler.DataCase
 
   alias Euler.Taxes

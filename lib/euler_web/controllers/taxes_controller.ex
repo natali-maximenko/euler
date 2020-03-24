@@ -3,7 +3,7 @@ defmodule EulerWeb.TaxesController do
   alias Euler.Taxes
 
   def index(conn, _params) do
-    changeset = Taxes.build_checkup()
+    changeset = Taxes.change_checkup()
     # list return only my checkups
     list = Taxes.list_checkups(conn.private[:current_ip])
     render(conn, "index.html", changeset: changeset, list: list)
