@@ -5,7 +5,10 @@ defmodule Euler.Plugs.IP do
   def init(default), do: default
 
   def call(conn, _opts) do
-    parse_ip(conn)
+    # TODO create or get user by ip
+    conn
+    |> parse_ip()
+    |> assign(:current_user, %{id: 1})
   end
 
   defp parse_ip(conn) do

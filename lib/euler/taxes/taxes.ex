@@ -3,7 +3,6 @@ defmodule Euler.Taxes do
   The Taxes context.
   """
 
-  # TODO namespaces in modules
   alias Euler.Taxes.{Checkup, CheckupQueries, ItnChecker}
 
   # Verification
