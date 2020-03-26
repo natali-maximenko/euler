@@ -55,23 +55,28 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("checkups:user_1", {})
+let channel = socket.channel("checkups:user_" + window.userId, {})
 
-let chatInput         = document.querySelector("#chat-input")
+let input         = document.querySelector("#itn-input")
 let messagesContainer = document.querySelector("#messages")
+let button = document.querySelector("#send-button")
 
-chatInput.addEventListener("keypress", event => {
+input.addEventListener("keypress", event => {
   if(event.keyCode === 13){
-    channel.push("new_msg", {body: chatInput.value})
-    chatInput.value = ""
+    channel.push("new_msg", {body: input.value})
+    input.value = ""
   }
 })
 
+button.addEventListener("click", event => {
+  channel.push("new_msg", {body: input.value})
+  input.value = ""
+})
+
 channel.on("new_msg", payload => {
-  let messageItem = document.createElement("li") 
+  let messageItem = document.createElement("p") 
   messageItem.innerText = `${payload.body}`
-  // messagesContainer.appendChild(messageItem)
-  let nodes = messagesContainer.querySelectorAll('li');
+  let nodes = messagesContainer.querySelectorAll('p');
   let first = nodes[0];
   messagesContainer.insertBefore(messageItem, first)
 })

@@ -1,21 +1,7 @@
-<div id="messages"></div>
-<input id="chat-input" type="text"/>
-<section class="row">
-<p>
-  <%= form_for @changeset, "/check_itn", [as: :form], fn f -> %>
-  <div class="form-group">
-    <%= label f, "Введите ИНН", class: "control-label" %>
-    <%= text_input f, :itn, class: "form-control" %>
-    <%= error_tag f, :itn %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Отправить", class: "btn btn-primary" %>
-  </div>
-<% end %>
-</p>
-</section>
-<div>
+<label>Введите ИНН</label>
+<input id="itn-input" type="text"/>
+<button id="send-button" class="btn btn-primary" type="submit">Отправить</button>
+<div id="messages">
 <%= for l <- @list do %>
 <p>[<%= l.inserted_at |> to_string() |> String.slice(0..-9) %>] <%= l.itn %> : <%= l.valid %></p>
 <% end %>
