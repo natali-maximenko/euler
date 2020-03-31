@@ -3,6 +3,6 @@
 <button id="send-button" class="btn btn-primary" type="submit">Отправить</button>
 <div id="messages">
 <%= for l <- @list do %>
-<p>[<%= l.inserted_at |> to_string() |> String.slice(0..-9) %>] <%= l.itn %> : <%= l.valid %></p>
+<p>[<%= time(l.inserted_at) %>] <%= l.itn %> : <%= result_msg(l.valid) %></p>
 <% end %>
 </div>

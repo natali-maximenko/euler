@@ -3,20 +3,22 @@ defmodule Euler.Taxes.TaxesTest do
 
   alias Euler.Taxes
   alias Euler.Taxes.Checkup
+  alias Euler.Accounts
 
   describe "checkups" do
-    @valid_attrs %{ip: "some ip", itn: "some itn", user_agent: "some user_agent", valid: true}
+    @valid_attrs %{itn: "some itn", valid: true}
     @update_attrs %{
-      ip: "some updated ip",
       itn: "some updated itn",
-      user_agent: "some updated user_agent",
       valid: false
     }
     @invalid_attrs %{ip: nil, itn: nil, user_agent: nil, valid: nil}
 
     def checkup_fixture(attrs \\ %{}) do
+      {:ok, user} = Accounts.create_user(%{ip: "127.0.0.1"})
+
       {:ok, checkup} =
         attrs
+        |> Map.put(:user_id, user.id)
         |> Enum.into(@valid_attrs)
         |> Taxes.create_checkup()
 
@@ -34,10 +36,10 @@ defmodule Euler.Taxes.TaxesTest do
     end
 
     test "create_checkup/1 with valid data creates a checkup" do
-      assert {:ok, %Checkup{} = checkup} = Taxes.create_checkup(@valid_attrs)
-      assert checkup.ip == "some ip"
+      {:ok, user} = Accounts.create_user(%{ip: "127.0.0.1"})
+      attrs = Map.put(@valid_attrs, :user_id, user.id)
+      assert {:ok, %Checkup{} = checkup} = Taxes.create_checkup(attrs)
       assert checkup.itn == "some itn"
-      assert checkup.user_agent == "some user_agent"
       assert checkup.valid == true
     end
 
@@ -48,9 +50,7 @@ defmodule Euler.Taxes.TaxesTest do
     test "update_checkup/2 with valid data updates the checkup" do
       checkup = checkup_fixture()
       assert {:ok, %Checkup{} = checkup} = Taxes.update_checkup(checkup, @update_attrs)
-      assert checkup.ip == "some updated ip"
       assert checkup.itn == "some updated itn"
-      assert checkup.user_agent == "some updated user_agent"
       assert checkup.valid == false
     end
 

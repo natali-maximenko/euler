@@ -2,15 +2,16 @@ defmodule Euler.Taxes.Checkup do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Euler.Accounts.User
   alias Euler.Taxes.Checkup
 
-  @required [:ip, :user_agent, :itn, :valid]
+  @required [:user_id, :itn, :valid]
 
   schema "checkups" do
-    field :ip, :string
-    field :user_agent, :string
     field :itn, :string
     field :valid, :boolean
+
+    belongs_to :user, User
 
     timestamps(type: :utc_datetime_usec)
   end
@@ -19,5 +20,6 @@ defmodule Euler.Taxes.Checkup do
     checkup
     |> cast(attrs, @required)
     |> validate_required(@required)
+    |> foreign_key_constraint(:user_id)
   end
 end
