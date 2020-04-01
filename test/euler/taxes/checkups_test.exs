@@ -3,7 +3,6 @@ defmodule Euler.Taxes.TaxesTest do
 
   alias Euler.Taxes
   alias Euler.Taxes.Checkup
-  alias Euler.Accounts
 
   describe "checkups" do
     @valid_attrs %{itn: "5610077532", valid: true}

@@ -1,5 +1,6 @@
 defmodule EulerWeb.CheckupChannel do
-  use Phoenix.Channel
+  use EulerWeb, :channel
+
   alias Euler.Taxes
   alias EulerWeb.TaxesView
 
@@ -10,6 +11,12 @@ defmodule EulerWeb.CheckupChannel do
       true -> {:ok, socket}
       false -> {:error, %{socket: socket.assigns, user_id: user_id}}
     end
+  end
+
+  # Channels can be used in a request/response fashion
+  # by sending replies to requests from the client
+  def handle_in("ping", payload, socket) do
+    {:reply, {:ok, payload}, socket}
   end
 
   def handle_in("new_msg", %{"body" => body}, socket) do
