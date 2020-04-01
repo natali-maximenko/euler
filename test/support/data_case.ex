@@ -19,6 +19,7 @@ defmodule Euler.DataCase do
   using do
     quote do
       alias Euler.Repo
+      import Euler.Factory
 
       import Ecto
       import Ecto.Changeset
