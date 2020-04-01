@@ -4,6 +4,7 @@ defmodule Euler.Application do
   @moduledoc false
 
   use Application
+  alias EulerWeb.Endpoint
 
   def start(_type, _args) do
     # List all child processes to be supervised
@@ -11,7 +12,7 @@ defmodule Euler.Application do
       # Start the Ecto repository
       Euler.Repo,
       # Start the endpoint when the application starts
-      EulerWeb.Endpoint
+      Endpoint
       # Starts a worker by calling: Euler.Worker.start_link(arg)
       # {Euler.Worker, arg},
     ]
@@ -25,7 +26,7 @@ defmodule Euler.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    EulerWeb.Endpoint.config_change(changed, removed)
+    Endpoint.config_change(changed, removed)
     :ok
   end
 end

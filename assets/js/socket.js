@@ -55,7 +55,32 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("checkups:user_" + window.userId, {})
+
+let input         = document.querySelector("#itn-input")
+let messagesContainer = document.querySelector("#messages")
+let button = document.querySelector("#send-button")
+
+input.addEventListener("keypress", event => {
+  if(event.keyCode === 13){
+    channel.push("new_msg", {body: input.value})
+    input.value = ""
+  }
+})
+
+button.addEventListener("click", event => {
+  channel.push("new_msg", {body: input.value})
+  input.value = ""
+})
+
+channel.on("new_msg", payload => {
+  let messageItem = document.createElement("p") 
+  messageItem.innerText = `${payload.body}`
+  let nodes = messagesContainer.querySelectorAll('p');
+  let first = nodes[0];
+  messagesContainer.insertBefore(messageItem, first)
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })

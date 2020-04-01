@@ -1,0 +1,8 @@
+<label>Введите ИНН</label>
+<input id="itn-input" type="text"/>
+<button id="send-button" class="btn btn-primary" type="submit">Отправить</button>
+<div id="messages">
+<%= for l <- @list do %>
+<p>[<%= time(l.inserted_at) %>] <%= l.itn %> : <%= result_msg(l.valid) %></p>
+<% end %>
+</div>
