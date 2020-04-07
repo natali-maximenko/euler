@@ -18,6 +18,10 @@ config :euler, EulerWeb.Endpoint,
   pubsub: [name: Euler.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "FeocdBbB"]
 
+config :euler, Euler.Administration.Accounts.Guardian,
+  issuer: "euler",
+  secret_key: "en5D08DeqA2Ip+KryAUiRADAZd5I9I98r0QEiUOXRmqBPBul4rSZZrDX7kEg6cbo"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

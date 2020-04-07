@@ -9,3 +9,16 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias Euler.Administration.Accounts
+alias Euler.Repo
+
+existed = Repo.get_by(Accounts.Admin, email: "admin@taxes.info")
+
+if is_nil(existed) do
+  {:ok, _admin} =
+    Accounts.create_admin(%{
+      email: "admin@taxes.info",
+      password: "adminadmin",
+      password_confirmation: "adminadmin"
+    })
+end
