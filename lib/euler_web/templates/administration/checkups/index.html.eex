@@ -9,6 +9,7 @@
       <%= if @current_admin.role == :admin do %>
       <th scope="col">ip</th>
       <% end %>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -19,8 +20,9 @@
     <td><%= time(l.inserted_at) %></td>
     <td><%= result_msg(l.valid) %></td>
     <%= if @current_admin.role == :admin do %>
-    <td scope="col"><%= l.user.ip %></td>
+    <td><%= l.user.ip %></td>
     <% end %>
+    <td><%= link "удалить", to: Routes.checkups_path(@conn, :delete, l), method: :delete, data: [confirm: "Вы уверены?"], class: "btn btn-danger btn-xs" %></td>
   </tr>
 <% end %>
   </tbody>

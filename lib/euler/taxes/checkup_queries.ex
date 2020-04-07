@@ -18,6 +18,7 @@ defmodule Euler.Taxes.CheckupQueries do
 
   def change(%Checkup{} = checkup), do: Checkup.changeset(checkup, %{})
   def get(id), do: Checkup |> Repo.get(id) |> Repo.preload(:user)
+  def delete(%Checkup{} = checkup), do: Repo.delete(checkup)
 
   def list(nil) do
     query = from ch in Checkup, order_by: [desc: :inserted_at]

@@ -1,5 +1,6 @@
-defmodule EulerWeb.Administration.TaxesView do
+defmodule EulerWeb.Administration.CheckupsView do
   use EulerWeb, :view
+  alias EulerWeb.Router.Helpers, as: Routes
 
   def time(timestamp \\ DateTime.utc_now()) do
     timestamp |> to_string() |> String.slice(0..-9)

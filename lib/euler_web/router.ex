@@ -42,7 +42,7 @@ defmodule EulerWeb.Router do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/protected", PageController, :protected
-    get "/checkups", Administration.TaxesController, :index
+    resources "/checkups", Administration.CheckupsController, only: [:index, :delete]
   end
 
   # Other scopes may use custom stacks.
