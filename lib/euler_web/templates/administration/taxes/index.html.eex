@@ -1,0 +1,5 @@
+<div>
+<%= for l <- @list do %>
+<p>[<%= time(l.inserted_at) %>] <%= l.itn %> : <%= result_msg(l.valid) %></p>
+<% end %>
+</div>
