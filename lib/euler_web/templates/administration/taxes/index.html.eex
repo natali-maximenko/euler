@@ -1,5 +1,28 @@
 <div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ИНН</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Результат</th>
+      <%= if @current_admin.role == :admin do %>
+      <th scope="col">ip</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
 <%= for l <- @list do %>
-<p>[<%= time(l.inserted_at) %>] <%= l.itn %> : <%= result_msg(l.valid) %></p>
+  <tr>
+    <th scope="row"><%= l.id %></th>
+    <td><%= l.itn %></td>
+    <td><%= time(l.inserted_at) %></td>
+    <td><%= result_msg(l.valid) %></td>
+    <%= if @current_admin.role == :admin do %>
+    <td scope="col"><%= l.user.ip %></td>
+    <% end %>
+  </tr>
 <% end %>
+  </tbody>
+</table>
 </div>

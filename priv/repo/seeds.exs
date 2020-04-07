@@ -23,3 +23,15 @@ if is_nil(existed) do
       password_confirmation: "adminadmin"
     })
 end
+
+operator = Repo.get_by(Accounts.Admin, email: "operator@taxes.info")
+
+if is_nil(operator) do
+  {:ok, _operator} =
+    Accounts.create_admin(%{
+      email: "operator@taxes.info",
+      role: :operator,
+      password: "testtest",
+      password_confirmation: "testtest"
+    })
+end
