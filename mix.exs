@@ -42,6 +42,7 @@ defmodule Euler.MixProject do
     [
       {:argon2_elixir, "~> 2.0"},
       {:credo, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:ecto_enum, "~> 1.4"},
       {:ecto_sql, "~> 3.3"},
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_machina, "~> 2.4", only: :test},

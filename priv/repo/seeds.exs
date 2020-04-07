@@ -18,6 +18,7 @@ if is_nil(existed) do
   {:ok, _admin} =
     Accounts.create_admin(%{
       email: "admin@taxes.info",
+      role: :admin,
       password: "adminadmin",
       password_confirmation: "adminadmin"
     })

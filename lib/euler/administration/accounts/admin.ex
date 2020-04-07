@@ -7,6 +7,7 @@ defmodule Euler.Administration.Accounts.Admin do
   schema "admin_users" do
     field :email, :string
     field :password_hash, :string
+    field :role, RoleEnum
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -14,7 +15,7 @@ defmodule Euler.Administration.Accounts.Admin do
     timestamps()
   end
 
-  @required [:email, :password, :password_confirmation]
+  @required [:email, :role, :password, :password_confirmation]
 
   @doc false
   def changeset(admin, attrs) do
