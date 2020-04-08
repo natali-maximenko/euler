@@ -9,12 +9,14 @@ defmodule Euler.Administration.AccountsTest do
     @valid_attrs %{
       email: "some@email.com",
       password: "some password",
-      password_confirmation: "some password"
+      password_confirmation: "some password",
+      role: :operator
     }
     @update_attrs %{
       email: "some_updated@email.com",
       password: "some updated password",
-      password_confirmation: "some updated password"
+      password_confirmation: "some updated password",
+      role: :admin
     }
     @invalid_attrs %{email: nil, password: nil}
 
@@ -41,6 +43,7 @@ defmodule Euler.Administration.AccountsTest do
       assert {:ok, %Admin{} = admin} = Accounts.create_admin(@valid_attrs)
       assert {:ok, admin} == Argon2.check_pass(admin, "some password", hash_key: :password)
       assert admin.email == "some@email.com"
+      assert admin.role == :operator
     end
 
     test "create_admin/1 with invalid data returns error changeset" do
@@ -55,6 +58,7 @@ defmodule Euler.Administration.AccountsTest do
                Argon2.check_pass(admin, "some updated password", hash_key: :password)
 
       assert admin.email == "some_updated@email.com"
+      assert admin.role == :admin
     end
 
     test "update_admin/2 with invalid data returns error changeset" do

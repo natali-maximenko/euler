@@ -4,6 +4,7 @@ defmodule Euler.Accounts.User do
 
   schema "users" do
     field :ip, :string
+    field :blocked_at, :utc_datetime
 
     timestamps()
   end
@@ -14,5 +15,10 @@ defmodule Euler.Accounts.User do
     |> cast(attrs, [:ip])
     |> validate_required([:ip])
     |> unique_constraint(:ip)
+  end
+
+  def block_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:blocked_at])
   end
 end

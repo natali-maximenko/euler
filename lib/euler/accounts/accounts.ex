@@ -102,4 +102,16 @@ defmodule Euler.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def block_user(%User{} = user) do
+    user
+    |> User.block_changeset(%{blocked_at: DateTime.utc_now()})
+    |> Repo.update()
+  end
+
+  def unblock_user(%User{} = user) do
+    user
+    |> User.block_changeset(%{blocked_at: nil})
+    |> Repo.update()
+  end
 end

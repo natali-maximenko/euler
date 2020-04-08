@@ -1,4 +1,4 @@
-defmodule EulerWeb.Administration.CheckupsController do
+defmodule EulerWeb.Administration.CheckupController do
   use EulerWeb, :controller
   alias Euler.Taxes
   alias Guardian.Plug

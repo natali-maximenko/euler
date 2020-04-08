@@ -1,4 +1,4 @@
-defmodule EulerWeb.Administration.CheckupsView do
+defmodule EulerWeb.Administration.CheckupView do
   use EulerWeb, :view
   alias EulerWeb.Router.Helpers, as: Routes
 

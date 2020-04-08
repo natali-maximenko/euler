@@ -21,8 +21,13 @@
     <td><%= result_msg(l.valid) %></td>
     <%= if @current_admin.role == :admin do %>
     <td><%= l.user.ip %></td>
+      <%= if is_nil(l.user.blocked_at) do %>
+      <td><%= link "заблокировать", to: Routes.user_path(@conn, :block, l.user), method: :put, data: [confirm: "Вы уверены?"], class: "btn btn-warning btn-xs" %></td>
+      <% else %>
+      <td><%= link "разблокировать", to: Routes.user_path(@conn, :unblock, l.user), method: :put, data: [confirm: "Вы уверены?"], class: "btn btn-warning btn-xs" %></td>
+      <% end %>
     <% end %>
-    <td><%= link "удалить", to: Routes.checkups_path(@conn, :delete, l), method: :delete, data: [confirm: "Вы уверены?"], class: "btn btn-danger btn-xs" %></td>
+    <td><%= link "удалить", to: Routes.checkup_path(@conn, :delete, l), method: :delete, data: [confirm: "Вы уверены?"], class: "btn btn-danger btn-xs" %></td>
   </tr>
 <% end %>
   </tbody>
