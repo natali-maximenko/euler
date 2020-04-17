@@ -1,6 +1,7 @@
 defmodule EulerWeb.CheckupChannel do
   use EulerWeb, :channel
 
+  alias Euler.Accounts
   alias Euler.Taxes
   alias EulerWeb.TaxesView
 
@@ -20,11 +21,21 @@ defmodule EulerWeb.CheckupChannel do
   end
 
   def handle_in("new_msg", %{"body" => body}, socket) do
-    {:ok, result} = Taxes.verify_itn(body)
-    attrs = %{itn: body, user_id: socket.assigns.user_id, valid: result}
-    {:ok, _checkup} = Taxes.create_checkup(attrs)
+    user = Accounts.get_user!(socket.assigns.user_id)
 
-    json = TaxesView.render("checkup.json", %{itn: body, result: result})
+    json =
+      case Accounts.can_verify?(user) do
+        {:ok, _} ->
+          {:ok, result} = Taxes.verify_itn(body)
+          attrs = %{itn: body, user_id: socket.assigns.user_id, valid: result}
+          {:ok, _checkup} = Taxes.create_checkup(attrs)
+
+          TaxesView.render("checkup.json", %{itn: body, result: result})
+
+        {:error, msg} ->
+          TaxesView.render("error.json", %{msg: msg})
+      end
+
     broadcast!(socket, "new_msg", json)
     {:noreply, socket}
   end

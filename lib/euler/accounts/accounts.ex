@@ -114,4 +114,7 @@ defmodule Euler.Accounts do
     |> User.block_changeset(%{blocked_at: nil})
     |> Repo.update()
   end
+
+  def can_verify?(%User{blocked_at: nil} = user), do: {:ok, user}
+  def can_verify?(%User{blocked_at: _}), do: {:error, "You are blocked"}
 end

@@ -1,6 +1,5 @@
 defmodule EulerWeb.TaxesController do
   use EulerWeb, :controller
-  alias Euler.Accounts
   alias Euler.Taxes
 
   action_fallback EulerWeb.FallbackController
@@ -12,6 +11,7 @@ defmodule EulerWeb.TaxesController do
     render(conn, "index.html", changeset: changeset, list: list)
   end
 
+  # FIXME unused
   def check_itn(conn, %{"form" => form_params}) do
     with {:ok, result} <- Taxes.verify_itn(form_params["itn"]),
          attrs <- build_checkup(conn, form_params["itn"], result),
