@@ -28,6 +28,6 @@ defmodule Euler.Plugs.IP do
           user
       end
 
-    assign(conn, :current_user, user)
+    assign(conn, :user, user)
   end
 end

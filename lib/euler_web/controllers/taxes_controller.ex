@@ -11,6 +11,7 @@ defmodule EulerWeb.TaxesController do
     render(conn, "index.html", changeset: changeset, list: list)
   end
 
+  # FIXME unused
   def check_itn(conn, %{"form" => form_params}) do
     with {:ok, result} <- Taxes.verify_itn(form_params["itn"]),
          attrs <- build_checkup(conn, form_params["itn"], result),
@@ -25,24 +26,12 @@ defmodule EulerWeb.TaxesController do
   defp result_msg(false), do: "ITN invalid!"
 
   defp build_checkup(conn, itn, validation_result) do
+    user = conn.assigns[:user]
+
     %{
       itn: itn,
-      ip: ip_to_string(conn.remote_ip),
-      user_agent: user_agent(conn.req_headers),
+      user_id: user.id,
       valid: validation_result
     }
-  end
-
-  # TODO Ecto type ip
-  defp ip_to_string(ip) when is_tuple(ip) do
-    ip |> :inet_parse.ntoa() |> to_string()
-  end
-
-  defp ip_to_string(ip), do: {:error, ip}
-
-  defp user_agent(headers) do
-    headers
-    |> Enum.find(fn {key, _} -> key == "user-agent" end)
-    |> elem(1)
   end
 end

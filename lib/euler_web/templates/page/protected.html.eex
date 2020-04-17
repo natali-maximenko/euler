@@ -1,0 +1,5 @@
+<h2>Protected Page</h2>
+<p>You can only see this page if you are logged in</p>
+<p>You're logged with email <%= @current_admin.email %></p>
+<p>You're <strong><%= @current_admin.role %></strong></p>
+<p>You can <a href="/logout">logout</a></p>

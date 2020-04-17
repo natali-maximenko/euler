@@ -14,4 +14,5 @@ defmodule Euler.Taxes do
   def update_checkup(checkup, attrs), do: CheckupQueries.update(checkup, attrs)
   def list_checkups(ip \\ nil), do: CheckupQueries.list(ip)
   def get_checkup(id), do: CheckupQueries.get(id)
+  def delete_checkup(checkup), do: CheckupQueries.delete(checkup)
 end

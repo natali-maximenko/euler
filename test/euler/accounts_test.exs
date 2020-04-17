@@ -51,5 +51,20 @@ defmodule Euler.AccountsTest do
       user = build(:user)
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
+
+    test "block_user/1" do
+      user = insert(:user)
+      assert {:ok, %User{} = user} = Accounts.block_user(user)
+      updated_user = Accounts.get_user!(user.id)
+      assert updated_user.blocked_at
+    end
+
+    test "unblock_user/1" do
+      user = insert(:user)
+      assert {:ok, %User{} = block_user} = Accounts.block_user(user)
+      assert block_user.blocked_at
+      assert {:ok, %User{} = updated_user} = Accounts.unblock_user(block_user)
+      refute updated_user.blocked_at
+    end
   end
 end
